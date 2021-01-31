@@ -15,8 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        #dependency: ['dep_julia', 'dep_julia_packages', 'dep_llvm', 'dep_juce']
-        dependency: ['dep_julia_packages']
+        dependency: ['dep_julia', 'dep_julia_packages', 'dep_llvm', 'dep_juce']
         os: ['ubuntu-latest', 'windows-latest', 'macOS-latest']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -49,6 +48,7 @@ jobs:
           mkdir linux
           mkdir mac
           mkdir windows
+
       - name: Retrieve dep_julia_packages on linux
         uses: actions/download-artifact@v2.0.8
         with:
@@ -64,6 +64,55 @@ jobs:
         with:
           name: dep_julia_packages on windows-latest
           path: windows/
+
+      - name: Retrieve dep_julia on linux
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_julia on ubuntu-latest
+          path: linux/
+      - name: Retrieve dep_julia on mac
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_julia on macOS-latest
+          path: mac/
+      - name: Retrieve dep_julia on windows
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_julia on windows-latest
+          path: windows/
+
+      - name: Retrieve dep_llvm on linux
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_llvm on ubuntu-latest
+          path: linux/
+      - name: Retrieve dep_llvm on mac
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_llvm on macOS-latest
+          path: mac/
+      - name: Retrieve dep_llvm on windows
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_llvm on windows-latest
+          path: windows/
+
+      - name: Retrieve dep_juce on linux
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_juce on ubuntu-latest
+          path: linux/
+      - name: Retrieve dep_juce on mac
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_juce on macOS-latest
+          path: mac/
+      - name: Retrieve dep_juce on windows
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_juce on windows-latest
+          path: windows/
+
       - name: Compress all bundles
         run: |
           cd linux
