@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dependency: ['dep_julia', 'dep_julia_packages', 'dep_llvm', 'dep_juce']
+        dependency: ['dep_julia_packages']
+        # dependency: ['dep_julia', 'dep_julia_packages', 'dep_llvm', 'dep_juce']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,11 +36,12 @@ jobs:
   
   release:
     runs-on: ubuntu-latest
+    needs: [build_all]
     steps:
       - name: Retrieve artifacts
         uses: actions/download-artifact@v2.0.8
         with:
-          name: dep_julia
+          name: dep_julia_packages
       - name: IDK
         run: |
           ls
