@@ -28,7 +28,7 @@ jobs:
     - name: Execute ./build.py ${{ matrix.dependency }}
       run: |
         cd audiobench
-        python3 build.py ${{ matrix.dependency }}
+        python build.py ${{ matrix.dependency }}
     - name: Upload result
       uses: actions/upload-artifact@v2.2.2
       with:
