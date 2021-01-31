@@ -6,11 +6,6 @@ name: Rebuild cache
 # or API.
 on:
   workflow_dispatch:
-    inputs:
-      tagName:
-        description: "What the release should be called."
-        required: true
-        default: "v2"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,7 +28,7 @@ jobs:
     - name: Execute ./build.py ${{ matrix.dependency }}
       run: |
         cd audiobench
-        ./build.py ${{ matrix.dependency }}
+        python3 build.py ${{ matrix.dependency }}
     - name: Upload result
       uses: actions/upload-artifact@v2.2.2
       with:
