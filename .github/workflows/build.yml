@@ -15,12 +15,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_all:
+    name: Build ${{ matrix.dependency }} on ${{ matrix.os }}
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         #dependency: ['dep_julia', 'dep_julia_packages', 'dep_llvm', 'dep_juce']
         dependency: ['dep_julia_packages']
+        os: ['ubuntu-latest', 'windows-latest', 'macOS-latest']
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,7 +37,7 @@ jobs:
     - name: Upload result
       uses: actions/upload-artifact@v2.2.2
       with:
-        name: ${{ matrix.dependency }}
+        name: ${{ matrix.dependency }} on ${{ matrix.os }}
         path: audiobench/dependencies/
         if-no-files-found: error
   
@@ -51,7 +53,7 @@ jobs:
       - name: Retrieve dep_julia_packages on linux
         uses: actions/download-artifact@v2.0.8
         with:
-          name: dep_julia_packages_linux
+          name: dep_julia_packages on ubuntu-latest
           path: linux/
       - name: Compress all bundles
         run: |
