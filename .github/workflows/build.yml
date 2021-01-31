@@ -54,6 +54,16 @@ jobs:
         with:
           name: dep_julia_packages on ubuntu-latest
           path: linux/
+      - name: Retrieve dep_julia_packages on mac
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_julia_packages on macOS-latest
+          path: mac/
+      - name: Retrieve dep_julia_packages on windows
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: dep_julia_packages on windows-latest
+          path: windows/
       - name: Compress all bundles
         run: |
           cd linux
